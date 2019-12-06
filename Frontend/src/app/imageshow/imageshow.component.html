@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <main class="col-12 col-md-12 col-xl-12 bd-content bg-transparent">
+      <div class="d-block d-sm-flex p-2 my-2  align-items-center">
+        <div class="col-12 col-sm-6 row m-0 align-items-center">
+          <h6 class="mb-0"> Image Directive</h6>
+        </div>
+        <div class="mt-2 mt-sm-0 col-12 col-sm-6 row m-0 justify-content-sm-end">
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/']">
+            User Management</button>
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/focus/new-1']">
+            FocusById</button>
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/autoselect']">
+            AutoSelect Box</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="name"><strong>Image Src </strong></label>
+      <input type="text" [(ngModel)]="imgageurl" placeholder="Image" class="form-control" maxlength="500" name="Image"
+        id="Image">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="name" style="width: 100%;">&nbsp;</label>
+      <button class="btn btn-success" type="submit" (click)="onChangeimage()">
+        Change Image
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="img_cir_40">
+      <img [src]="imagesrc" onError="this.src='assets/images/placeholder.png'">
+    </div>
+  </div>
+</div>

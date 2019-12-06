@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <main class="col-12 col-md-12 col-xl-12 bd-content bg-transparent">
+      <div class="d-block d-sm-flex p-2 my-2  align-items-center">
+        <div class="col-12 col-sm-6 row m-0 align-items-center">
+          <h6 class="mb-0"> User Management</h6>
+        </div>
+        <div class="mt-2 mt-sm-0 col-12 col-sm-6 row m-0 justify-content-sm-end">
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/img']">
+            Image Directive </button>
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/focus/new-1']">
+            FocusById</button>
+          <button type="button" class="btn btn-sm btn-white" [routerLink]="['/autoselect']">
+            AutoSelect Box</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6 col-xl-2">
+      <label class="form-inline justify-content-end">Show entries
+        <select name="example_length" aria-controls="example"
+          class="ml-2 custom-select custom-select-sm form-control form-control-sm"
+          (change)="onPageSizeChange($event.target.value)">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+      <input type="text" name="search" class="form-control" [(ngModel)]="searchText"
+        (ngModelChange)="onSearchTextChange($event)" placeholder="Search by Name" />
+    </div>
+  </div>
+  <div class="bd-example position-relative">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-black">
+          <tr class="t_width130">
+            <th scope="col" class="m_width60">S No.</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let userdetail of UserList | paginate: {id: 'server', itemsPerPage:PageSize ,currentPage:PageNo,totalItems:totalcount} let i = index">
+            <td>{{PageSize*(PageNo-1) +(i+1)}}</td>
+            <td>{{userdetail.firstName}}</td>
+            <td>{{userdetail.lastName}}</td>
+            <td>{{userdetail.email}}</td>
+          </tr>
+
+          <tr *ngIf="!UserList||UserList.length<=0" class="text-center">
+            <td colspan="100%" class="alert-danger">
+              No Record Found
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="UserList && UserList.length > 0" class="row dt-toolbar-footer ul-pagination-mb0">
+      <div class="my-2 my-sm-0 d-flex col-sm-6 col-12 justify-content-sm-start justify-content-center">
+        <i>Showing 1 to {{UserList.length}} of {{totalcount}} entries</i>
+      </div>
+      <div class="my-2 my-sm-0 d-flex col-sm-6 col-12 justify-content-sm-end justify-content-center">
+        <pagination-controls (pageChange)="Paging($event)" id="server"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+</div>
