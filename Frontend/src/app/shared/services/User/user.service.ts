@@ -18,11 +18,15 @@ export class UserService {
   *    search: String,
   * }
   */
-  GetUserList(search) {
+
+  GetUserList(search, PageNo?, PageSize?) {
+    let url = BASE_URL + `/users?_page=${PageNo}&_limit=${PageSize}&firstName_like=${search}`
+    if (!PageNo)
+      url = BASE_URL + `/users?firstName_like=${search}`
     this._commonService.showLoading(true);
-    return this.http.get(BASE_URL + `/users?firstName_like=${search}`)
-      .pipe(map((response: Response) => { this.onSuccess(); return response }))
-      .pipe(catchError(this.handleError));;
+    return this.http.get(url, { observe: 'response' })
+      .pipe(map((response) => { this.onSuccess(); return response }))
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any) {

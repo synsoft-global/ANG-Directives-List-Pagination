@@ -41,7 +41,7 @@ export class AutoselectboxComponent implements OnInit {
   FetchItemDetailsSearch(searchText = "") {
     this.subscriptions.push(this._UserService.GetUserList(searchText).subscribe((res: any) => {
       if (res) {
-        this.UserList = res; //Bind to view
+        this.UserList = res.body; //Bind to view
       } else {
         this.UserList = [];
         this.showError('Something Went Wrong');

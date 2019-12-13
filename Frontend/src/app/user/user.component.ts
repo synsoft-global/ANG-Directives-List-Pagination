@@ -50,9 +50,10 @@ export class UserComponent implements OnInit {
   * Get List User
   */
   GetUserList() {
-    this.subscriptions.push(this._UserService.GetUserList(this.searchText).subscribe((res: any) => {
+    this.subscriptions.push(this._UserService.GetUserList(this.searchText, this.PageNo, this.PageSize).subscribe((res: any) => {
       if (res) {
-        this.UserList = res; //Bind to view
+        this.totalcount = res.headers.get('X-Total-Count');
+        this.UserList = res.body; //Bind to view
       } else {
         this.UserList = [];
         this.showError('Something Went Wrong');
